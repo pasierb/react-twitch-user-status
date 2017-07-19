@@ -1,7 +1,7 @@
 {
   "name": "react-twitch-user-status",
   "description": "Simple React component for displaying Twitch.tv user status",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "authors": [
     "Michal Pasierbski (mpasierbski@gmail.com)"
