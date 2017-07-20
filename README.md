@@ -11,6 +11,20 @@ If you don't have one:
 3. create an app
 
 
+### Install
+
+YARN
+
+```
+$ yarn add react-twitch-user-status
+```
+
+npm
+
+```
+$ npm install react-twitch-user-status
+```
+
 ### Depedencies
 
 - jQuery (for jsonp request)
@@ -19,3 +33,5 @@ If you don't have one:
 
 ```html
 <TwitchUserStatus username="gernaderjake" livePoll={5000} twitchClientId="YOUR_TWITCH_CLIENT_ID" />
+```
+
