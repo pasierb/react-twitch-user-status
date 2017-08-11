@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import './TwitchUserStatus.css';
-import twitchLogo from './twitch.svg';
-import eyeIcon from './eye.svg';
-import gamepadIcon from './gamepad.svg';
+
+const twitchColor = {
+  color: '#4b367c'
+}
 
 function TwitchStreamViewers(props) {
   return (
     <span className="twitch-stream-viewers">
-      <i className="icon">
-        <img src={eyeIcon} alt="viewers" />
-      </i>
+      <i className="icon fa fa-eye"></i>
       {props.stream.viewers}
     </span>
   );
@@ -19,7 +17,7 @@ function TwitchStreamViewers(props) {
 
 function TwitchStreamPreview(props) {
   return (
-    <a href={props.link} className="twitch-stream-preview">
+    <a href={props.link} className="twitch-stream-preview" style={{padding: 0}}>
       <img src={props.stream.preview.medium} alt={props.stream.game} />
     </a>
   );
@@ -27,10 +25,8 @@ function TwitchStreamPreview(props) {
 
 function TwitchStreamGame(props) {
   return (
-    <span className="twitch-stream-game">
-      <i className="icon">
-        <img src={gamepadIcon} alt="game" />
-      </i>
+    <span className="twitch-stream-game" style={props.style}>
+      <i className="icon fa fa-gamepad"></i>
       {props.stream.game}
     </span>
   );
@@ -39,8 +35,8 @@ function TwitchStreamGame(props) {
 function TwitchUser(props) {
   return (
     <span className="twitch-username">
-      <i className="icon"><img src={twitchLogo} alt="twitch logo"/></i>
-      <a href={props.link}>{props.username}</a>
+      <i className="icon fa fa-twitch" style={twitchColor}></i>
+      <a href={props.link} style={{display: 'inline', padding: 0, ...twitchColor}}>{props.username}</a>
     </span>
   );
 }
@@ -58,12 +54,14 @@ export default class TwitchUserStatus extends Component {
     /** Refresh interval, 0 (default) for no refresh */
     livePoll: PropTypes.number,
     /** */
-    showPreview: PropTypes.bool
+    showPreview: PropTypes.bool,
+    showOffline: PropTypes.bool
   };
 
   static defaultProps = {
     livePoll: 0,
-    showPreview: true
+    showPreview: true,
+    showOffline: true
   };
 
   constructor(props) {
@@ -86,11 +84,11 @@ export default class TwitchUserStatus extends Component {
               <TwitchUser username={this.props.username} link={twitchUrl}/>: {stream.channel.status}
             </div>
             <div className="details">
-              <TwitchStreamGame stream={stream} />
+              <TwitchStreamGame stream={stream} style={{marginRight: '10px'}}/>
               <TwitchStreamViewers stream={stream} />
             </div>
           </div>
-        ) : (
+        ) : this.props.showOffline && (
           <span>
             <TwitchUser username={this.props.username} link={twitchUrl}/>: Offline
           </span>
